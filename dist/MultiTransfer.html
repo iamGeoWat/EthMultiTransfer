@@ -1,0 +1,58 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="./lightwallet.js"></script>
+    <script type="text/javascript" src="./web3.min.js"></script>
+    <script type="text/javascript" src="./hooked-web3-provider.js"></script>
+    <script type="text/javascript" src="./async.min.js"></script>
+    <script type="text/javascript" src="./multitransfer.min.js"></script>
+</head>
+<body>
+    <h1>批量转账 by GeoWat</h1>
+    <div style="background-color: #dddddd;">
+        <h1>1.在此区域导入一个钱包</h1>
+        <h2>新建一个钱包(为了防止页面刷新后丢失，请记下弹窗中的助记词)</h2>
+        <h2>密码必须是123</h2>
+        <div><input type="text" id="userEntropy" placeholder="随意输入一些英文字母来增强钱包安全性" size="80"><button onclick="newWallet()">新建钱包</button></div>
+        <h2>如果你要用之前新建的钱包，在这里从助记词恢复钱包</h2>
+        <div><input type="text" id="seed" value="" size="80"><button onclick="setSeed()">恢复</button></div>
+    </div>
+    <div style="background-color: beige">
+        <h1>2.向这个地址转入一定量的eth</h1>
+        <h2>钱包地址</h2>
+        <div><input type="text" id="numAddr" size="5" value="1" disabled></div>
+        <div id="addr"></div>
+        <div><button onClick='getBalances()'>刷新余额</button></div>
+    </div>
+
+    <div style="background-color: cadetblue">
+        <h2>3.批量转账：</h2>
+        <h3>把address.txt文件和这个程序放在一起，格式为每行只有一个eth地址，地址后有 - ，如0x0000000000---</h3>
+        <input type="file" onchange="openFile(this.files)">
+        <br>
+        <label>提取到的地址：</label><textarea id="showFile" cols="100" rows="10" style="background-color: #dddddd"></textarea>
+        <div>每个地址转的eth数量:<input type="text" id="sendEachAmt" value="0.01"></div>
+        <div>Gas: <input type="text" id="sendEachGas" value="100000"></div>
+        <div>Gas Price:<input type="text" id="sendEachGasPrice" value="14000000000"></div>
+        <div><button onclick="sendEach()">批量转账</button></div>
+        <br>
+        <label>转账信息：</label><textarea id="showRecord" cols="100" rows="10" style="background-color: #dddddd"></textarea>
+    </div>
+
+    <div style="background-color: aquamarine">
+        <h1>工具</h1>
+        <h2>4.转移出多余的eth</h2>
+        <div>从：<select id="sendFrom" disabled></select></div>
+        <div>到: <input type="text" size="40" id="sendTo"></div>
+        <div>eth数量: <input type="text" id="sendValueAmount"></div>
+        <div>Gas: <input type="text" id="sendGas"></div>
+        <div>Gas Price(1 Gwei 在这里输入 1000000000): <input type="text" id="sendGasPrice"></div>
+        <div><button onclick="sendEth()">发送</button></div>
+
+        <h2>5.查看助记词</h2>
+        <button onclick="showSeed()">查看</button>
+    </div>
+
+
+  </body>
+</html>
